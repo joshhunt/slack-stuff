@@ -12,11 +12,12 @@ CHANNEL_TO_LEFTRONIC_STREAM_NAME = {
 
 module.exports = (req, res, next) ->
 
-  postReply = (newGifUrl, friendlyUrl) ->
+  gifViaUrl = (newGifUrl, friendlyUrl) ->
     payload =
       streamName: leftronicStreamName
       imgUrl: newGifUrl
 
+    console.log 'Posting new image to leftronic stream', leftronicStreamName
     leftronic.pushImage payload, (err, resp) ->
       throw err if err
       res.send 'Dashboard Gif changed to ' + (friendlyUrl or newGifUrl)
@@ -24,7 +25,7 @@ module.exports = (req, res, next) ->
   gifViaSearch = ->
     giphy.search newGif
       .then ({data}) ->
-        postReply data.data.image_url
+        gifViaUrl data.data.image_url
 
   gifViaTrending = ->
     trendingResultIndex = newGif.match(TRENDING_REGEX)[1] or 0
@@ -36,7 +37,7 @@ module.exports = (req, res, next) ->
       .then ({data}) ->
         trendingGifs = data.data
         theGif = trendingGifs[trendingResultIndex]
-        postReply theGif.images.original.url, theGif.bitly_gif_url
+        gifViaUrl theGif.images.original.url, theGif.bitly_gif_url
 
   channel = req.body.channel_name
   username = req.body.user_name
@@ -60,7 +61,7 @@ module.exports = (req, res, next) ->
   # And then switch the functionality depending on the command
   if URL_REGEX.test(newGif)
     console.log ' - using URL method'
-    postReply newGif
+    gifViaUrl newGif
   else if TRENDING_REGEX.test(newGif)
     console.log ' - using trending method'
     gifViaTrending newGif

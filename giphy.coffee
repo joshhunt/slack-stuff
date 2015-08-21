@@ -4,7 +4,7 @@ urlLib = require 'url'
 querystring = require 'querystring'
 
 # We hardcode this because it's the same token for everyone.
-GIPHY_TOKEN = 'dc6zaTOxFJmzC'
+GIPHY_TOKEN = process.env.GIPHY_TOKEN or 'dc6zaTOxFJmzC'
 GIPHY_URL_BASE = 'http://api.giphy.com/v1'
 
 createUrl = (endpoint, params = {}) ->
@@ -18,6 +18,7 @@ createUrl = (endpoint, params = {}) ->
 
 module.exports = giphy = (endpoint, params = {}) ->
   url = createUrl endpoint, params
+  console.log 'Hitting', url
   axios.get url
 
 module.exports.search = (searchTerm) ->
