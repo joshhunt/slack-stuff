@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 app.get '/', (req, res) -> res.json({'Hello': 'World'})
 app.post '/hello', hellobot
-app.post '/setGif', hellobot
+app.post '/setGif', setGif
 
 app.use (err, req, res, next) ->
     console.error err.stack
