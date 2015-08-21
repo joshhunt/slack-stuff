@@ -1,4 +1,4 @@
-leftronic = require './leftronic'
+leftronic = require '../leftronic'
 
 CHANNEL_TO_LEFTRONIC_STREAM_NAME = {
   'tv': 'tvGif'
