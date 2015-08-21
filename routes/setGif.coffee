@@ -36,6 +36,12 @@ module.exports = (req, res, next) ->
       res.send msg
 
       if chData.notificationChannel
+
+        channel = req.body.channel_name
+        username = req.body.user_name
+        newGif = req.body.text
+
+        msg = "@#{username} in ##{channel} used `#{newGif}` to change the gif to #{(friendlyUrl or newGifUrl)}"
         slack.send msg, {channel: chData.notificationChannel, username: 'Dashboard Giffer'}
 
   gifViaSearch = ->
