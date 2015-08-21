@@ -1,9 +1,9 @@
 leftronic = require '../leftronic'
 
 CHANNEL_TO_LEFTRONIC_STREAM_NAME = {
-  'tv': 'tvGif'
+  'tv':          'tvGif'
   'tv-services': 'tvGif'
-  'tv-web': 'tvGif'
+  'tv-web':      'tvGif'
 }
 
 module.exports = (req, res, next) ->
