@@ -2,6 +2,7 @@ express    = require 'express'
 bodyParser = require 'body-parser'
 
 hellobot   = require './routes/hellobot'
+setGif     = require './routes/setGif'
 
 app = express()
 app.use(bodyParser.json())
@@ -9,6 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 app.get '/', (req, res) -> res.json({'Hello': 'World'})
 app.post '/hello', hellobot
+app.post '/setGif', hellobot
 
 app.use (err, req, res, next) ->
     console.error err.stack
